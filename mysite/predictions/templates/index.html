@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Card Product Prediction</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 90%;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #00B4CC;
+            outline: none;
+        }
+
+        .form-group select option {
+            color: #333;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #00B4CC;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #008C99;
+        }
+
+        .response {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .form-grid .form-group {
+            flex: 1;
+        }
+
+        .form-grid .form-group:nth-child(21) {
+            grid-column: span 4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Card Product Prediction</h1>
+        <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="attrite">Is the customer still with the bank?</label>
+                    <select name="attrite" id="attrite" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name of the person</label>
+                    <input type="text" name="name" id="name" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age of the person</label>
+                    <input type="text" name="age" id="age" placeholder="Age" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender of the person</label>
+                    <select name="gender" id="gender" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">Female</option>
+                        <option value="1">Male</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="children">Number of children</label>
+                    <input type="text" name="children" id="children" placeholder="Number of children" required>
+                </div>
+                <div class="form-group">
+                    <label for="edu">Education</label>
+                    <select name="edu" id="edu" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">College</option>
+                        <option value="1">Doctorate</option>
+                        <option value="2">Graduate</option>
+                        <option value="3">High School</option>
+                        <option value="4">Post-Graduate</option>
+                        <option value="5">Uneducated</option>
+                        <option value="6">Unknown</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="marital">Marital status</label>
+                    <select name="marital" id="marital" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">Divorced</option>
+                        <option value="1">Married</option>
+                        <option value="2">Single</option>
+                        <option value="3">Unknown</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="income">Income range</label>
+                    <select name="income" id="income" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="0">$120K +</option>
+                        <option value="1">$40K - $60K</option>
+                        <option value="2">$60K - $80K</option>
+                        <option value="3">$80K - $120K</option>
+                        <option value="4">Less than $40K</option>
+                        <option value="5">Unknown</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="monthOnBooks">Month on books</label>
+                    <input type="text" name="monthOnBooks" id="monthOnBooks" placeholder="Month on books" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalRelationshipCount">Total Relationship Count</label>
+                    <input type="text" name="totalRelationshipCount" id="totalRelationshipCount" placeholder="Total Relationship Count" required>
+                </div>
+                <div class="form-group">
+                    <label for="monthsInactive12mon">Months inactive (1-12)</label>
+                    <input type="text" name="monthsInactive12mon" id="monthsInactive12mon" placeholder="Months inactive" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactsCount12mon">Contacts count (1-10)</label>
+                    <input type="text" name="contactsCount12mon" id="contactsCount12mon" placeholder="Contacts count" required>
+                </div>
+                <div class="form-group">
+                    <label for="creditLimit">Credit Limit</label>
+                    <input type="text" name="creditLimit" id="creditLimit" placeholder="Credit Limit" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalRevolvingBal">Total Revolving Balance</label>
+                    <input type="text" name="totalRevolvingBal" id="totalRevolvingBal" placeholder="Total Revolving Balance" required>
+                </div>
+                <div class="form-group">
+                    <label for="avgOpenToBuy">Average open to buy</label>
+                    <input type="text" name="avgOpenToBuy" id="avgOpenToBuy" placeholder="Average open to buy" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalAmtChngQ4Q1">Total amount change from Q4 to Q1</label>
+                    <input type="text" name="totalAmtChngQ4Q1" id="totalAmtChngQ4Q1" placeholder="Total amount change from Q4 to Q1" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalTransAmt">Total transferred amount</label>
+                    <input type="text" name="totalTransAmt" id="totalTransAmt" placeholder="Total transferred amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalTransCt">Total transferred credit</label>
+                    <input type="text" name="totalTransCt" id="totalTransCt" placeholder="Total transferred credit" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalCtChngQ4Q1">Total credit change from Q4 to Q1</label>
+                    <input type="text" name="totalCtChngQ4Q1" id="totalCtChngQ4Q1" placeholder="Total credit change from Q4 to Q1" required>
+                </div>
+                <div class="form-group">
+                    <label for="avgUtilizationRatio">Total average utilization ratio (0 to 1)</label>
+                    <input type="text" name="avgUtilizationRatio" id="avgUtilizationRatio" placeholder="Average utilization ratio" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="pred_button">Submit</button>
+            </div>
+        </form>
+        {% if response %}
+        <div class="response">
+            <h2>The card requested by customer will be: {{ response }}</h2>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
